@@ -1,0 +1,5 @@
+22:21:22,133 | DEBUG | 50    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | Config file loaded !!!
+22:21:22,139 | DEBUG | 63    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | OR file loaded !!!
+22:21:33,941 | DEBUG | 11    | main                             | loginAsBankManager               | LoginTest.java                   | devpinoyLogger                   | Inside Login Test
+22:21:37,050 | DEBUG | 15    | main                             | loginAsBankManager               | LoginTest.java                   | devpinoyLogger                   | Login successfully executed
+22:21:37,824 | DEBUG | 91    | main                             | tearDown                         | TestBase.java                    | devpinoyLogger                   | Test execution completed !!!!

@@ -1,5 +1,12 @@
 package com.w2a.base;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,14 +14,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-import javax.print.attribute.standard.PrinterMessageFromOperator;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
 public class TestBase {
 
     /*
@@ -37,14 +36,19 @@ public class TestBase {
     public static FileInputStream fis;
     public static Logger log = Logger.getLogger("devpinoyLogger");
 
+
+
     @BeforeSuite
     public void setUp() {
+
+
+
 
         if (driver == null) {
 
             try {
                 fis = new FileInputStream(
-                        System.getProperty("user.dir") + "\\src\\test\\resources\\properties\\Config.properties");
+                        System.getProperty("user.dir") + "\\src\\test\\java\\resources\\properties\\Config.properties");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -57,7 +61,7 @@ public class TestBase {
 
             try {
                 fis = new FileInputStream(
-                        System.getProperty("user.dir") + "\\src\\test\\resources\\properties\\OR.properties");
+                        System.getProperty("user.dir") + "\\src\\test\\java\\resources\\properties\\OR.properties");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
