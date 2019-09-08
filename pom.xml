@@ -8,6 +8,22 @@
     <artifactId>FirstFullProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <build>
+        <pluginManagement>
+        <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>11</source>
+                <target>11</target>
+            </configuration>
+        </plugin>
+        </plugins>
+        </pluginManagement>
+</build>
+
+
     <dependencies>
 
     <!-- https://mvnrepository.com/artifact/org.testng/testng -->
@@ -93,6 +109,7 @@
         <artifactId>poi-ooxml</artifactId>
         <version>4.1.0</version>
     </dependency>
+
     <!-- http://mvnrepository.com/artifact/dom4j/dom4j -->
     <dependency>
         <groupId>dom4j</groupId>
@@ -119,8 +136,6 @@
             <artifactId>guava</artifactId>
             <version>24.0-jre</version>
         </dependency>
-
-
 
     </dependencies>
 

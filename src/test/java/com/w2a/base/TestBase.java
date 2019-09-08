@@ -1,5 +1,6 @@
 package com.w2a.base;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class TestBase {
 
     /*
-    Webdriver
-    Properties
-    Logs
+    Webdriver -done
+    Properties - done
+    Logs -
     ExtentReports
     DB
     Excel
@@ -34,48 +35,64 @@ public class TestBase {
     public Properties config = new Properties();
     public Properties OR = new Properties();
     public static FileInputStream fis;
-
+    public static Logger log = Logger.getLogger("devpinoyLogger");
 
     @BeforeSuite
-    public void setUp() throws IOException {
+    public void setUp() {
+
         if (driver == null) {
-            FileInputStream fis = null;
+
             try {
-                fis = new FileInputStream(System.getProperty("user.dir") + "/resources/properties/Config.properties");
+                fis = new FileInputStream(
+                        System.getProperty("user.dir") + "\\src\\test\\resources\\properties\\Config.properties");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            config.load(fis);
             try {
-                fis = new FileInputStream(System.getProperty("user.dir") + "/resources/properties/OR.properties");
+                config.load(fis);
+                log.debug("Config file loaded !!!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                fis = new FileInputStream(
+                        System.getProperty("user.dir") + "\\src\\test\\resources\\properties\\OR.properties");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            OR.load(fis);
+            try {
+                OR.load(fis);
+                log.debug("OR file loaded !!!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (config.getProperty("browser").equals("firefox")) {
+                //System.getProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/resources/executables/geckodriver.exe");
+                driver = new FirefoxDriver();
+            } else if (config.getProperty("browser").equals("chrome")) {
+                //System.getProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/resources/executables/chromedriver.exe");
+                driver = new ChromeDriver();
+            } else if (config.getProperty("browser").equals("safari")) {
+                driver = new SafariDriver();
+            }
+            driver.get(config.getProperty("testsiteurl"));
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")), TimeUnit.SECONDS);
+
         }
 
-        if (config.getProperty("browser").equals("firefox")) {
-            //System.getProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/resources/executables/geckodriver.exe");
-            driver = new FirefoxDriver();
-
-        } else if (config.getProperty("browser").equals("chrome")) {
-            //System.getProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/resources/executables/chromedriver.exe");
-            driver = new ChromeDriver();
-        } else if (config.getProperty("browser").equals("safari")) {
-            driver = new SafariDriver();
-        }
-        driver.get(config.getProperty("testsiteurl"));
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")), TimeUnit.SECONDS);
 
     }
-
 
     @AfterSuite
-    public void tearDown() {
-
-        if (driver != null) {
+    public void tearDown(){
+        if (driver!=null){
             driver.quit();
         }
+        log.debug("Test execution completed !!!!");
     }
+
+
 }
