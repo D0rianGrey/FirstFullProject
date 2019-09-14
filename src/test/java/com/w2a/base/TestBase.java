@@ -15,8 +15,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import resources.utilities.ExcelReader;
 
 public class TestBase {
 
@@ -39,13 +43,15 @@ public class TestBase {
     public Properties OR = new Properties();
     public static FileInputStream fis;
     public static Logger log = Logger.getLogger("devpinoyLogger");
+    public static ExcelReader excel = new ExcelReader(System.getProperty("user.dir") + "\\src\\test\\java\\resources\\excel\\testdata.xlsx");
+    public static WebDriverWait wait;
 
 
-    @BeforeSuite
+    @BeforeTest
     public void setUp() {
 
 
-        if (driver == null) {
+
 
             try {
                 fis = new FileInputStream(
@@ -85,11 +91,12 @@ public class TestBase {
             driver.get(config.getProperty("testsiteurl"));
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")), TimeUnit.SECONDS);
+            wait = new WebDriverWait(driver,5);
 
         }
 
 
-    }
+
 
     public boolean isElementPresent(By by) {
         try {
@@ -102,11 +109,11 @@ public class TestBase {
         }
     }
 
-    @AfterSuite
+    @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+
+            driver.close();
+
         log.debug("Test execution completed !!!!");
     }
 

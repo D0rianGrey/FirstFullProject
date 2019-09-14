@@ -1,4 +1,4 @@
-22:19:35,736 | DEBUG | 58    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | Config file loaded !!!
-22:19:35,745 | DEBUG | 71    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | OR file loaded !!!
-22:19:47,800 | DEBUG | 12    | main                             | loginAsBankManager               | LoginTest.java                   | devpinoyLogger                   | Inside Login Test
-22:19:58,724 | DEBUG | 110   | main                             | tearDown                         | TestBase.java                    | devpinoyLogger                   | Test execution completed !!!!
+13:40:48,369 | DEBUG | 62    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | Config file loaded !!!
+13:40:48,384 | DEBUG | 75    | main                             | setUp                            | TestBase.java                    | devpinoyLogger                   | OR file loaded !!!
+13:41:00,453 | DEBUG | 12    | main                             | loginAsBankManager               | BankManagerLoginTest.java        | devpinoyLogger                   | Inside Login Test
+13:41:05,684 | DEBUG | 115   | main                             | tearDown                         | TestBase.java                    | devpinoyLogger                   | Test execution completed !!!!
