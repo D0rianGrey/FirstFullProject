@@ -19,12 +19,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import resources.utilities.ExcelReader;
 import resources.utilities.ExtentManager;
+import resources.utilities.TestUtil;
 
 public class TestBase {
 
@@ -129,6 +132,26 @@ public class TestBase {
             return false;
         }
     }
+
+
+    public static void verifyEquals(String expected, String actual) throws IOException {
+        try {
+
+            Assert.assertEquals(actual, expected);
+
+        } catch (Throwable t) {
+
+            TestUtil.captureScreenshot();
+            //ReportNG
+            Reporter.log("<br>" + "Verification failure : " + t.getMessage() + "<br>");
+            Reporter.log("<a target=\"_blank\" href=" + TestUtil.screenshotName + "><img src=" + TestUtil.screenshotName + " height=200 width=200></img></a>");
+            Reporter.log("<br>");
+            //Extent Reports
+            test.log(LogStatus.FAIL, " Verification failed with exception : " + t.getMessage());
+            test.log(LogStatus.FAIL, test.addScreenCapture(TestUtil.screenshotName));
+        }
+    }
+
 
     @AfterTest
     public void tearDown() {
